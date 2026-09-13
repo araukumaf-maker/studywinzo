@@ -3,7 +3,7 @@
  * Premium File Upload Component
  * Usage: renderFilePicker('input_name', 'Label', 'accept', 'hint', 'current_preview_url')
  */
-function renderFilePicker($name, $label, $accept = 'image/*', $hint = 'PNG, JPG · max 5MB', $preview = ''){ ?>
+function renderFilePicker($name, $label, $accept = 'image/*', $hint = 'PNG, JPG · max 5MB', $preview = '', $maxMB = 200){ ?>
 <style>
 .fu-wrap{margin-bottom:4px}
 .fu-label{display:block;font-size:11px;font-weight:700;color:#94a3b8;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px}
@@ -37,8 +37,8 @@ function renderFilePicker($name, $label, $accept = 'image/*', $hint = 'PNG, JPG 
 <label class="fu-drop" id="fu-<?= $name ?>" 
        ondragover="event.preventDefault();this.classList.add('drag')" 
        ondragleave="this.classList.remove('drag')" 
-       ondrop="fuDrop(event, '<?= $name ?>')">
-    <input type="file" name="<?= htmlspecialchars($name) ?>" id="fu-input-<?= $name ?>" accept="<?= htmlspecialchars($accept) ?>" class="fu-input" onchange="fuChange(this, '<?= $name ?>')"/>
+       ondrop="fuDrop(event, '<?= $name ?>', <?= (int)$maxMB ?>)">
+    <input type="file" name="<?= htmlspecialchars($name) ?>" id="fu-input-<?= $name ?>" accept="<?= htmlspecialchars($accept) ?>" class="fu-input" onchange="fuChange(this, '<?= $name ?>', <?= (int)$maxMB ?>)"/>
     
     <div class="fu-empty" id="fu-empty-<?= $name ?>">
         <div class="fu-icon">
@@ -70,10 +70,10 @@ function renderFilePicker($name, $label, $accept = 'image/*', $hint = 'PNG, JPG 
 
 <script>
 if (!window.fuChange) {
-    window.fuChange = function(input, name){
+    window.fuChange = function(input, name, maxMB){
         if (!input.files || !input.files[0]) return;
         var f = input.files[0];
-        var maxMB = 200;
+        maxMB = Number(maxMB) || 200;
         if (f.size > maxMB * 1024 * 1024) { alert('File too large. Max ' + maxMB + 'MB'); input.value=''; return; }
 
         document.getElementById('fu-empty-' + name).style.display = 'none';
@@ -97,14 +97,14 @@ if (!window.fuChange) {
         document.getElementById('fu-prev-' + name).style.display = 'none';
         document.getElementById('fu-' + name).classList.remove('has-file');
     };
-    window.fuDrop = function(e, name){
+    window.fuDrop = function(e, name, maxMB){
         e.preventDefault();
         document.getElementById('fu-' + name).classList.remove('drag');
         var files = e.dataTransfer.files;
         if (files.length > 0) {
             var input = document.getElementById('fu-input-' + name);
             input.files = files;
-            window.fuChange(input, name);
+            window.fuChange(input, name, maxMB);
         }
     };
 }

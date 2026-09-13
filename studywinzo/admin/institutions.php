@@ -124,7 +124,7 @@ body{background:#070b14;color:#e2e8f0;margin:0;min-height:100vh}
 <label style="display:block;font-size:11px;font-weight:700;color:#94a3b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Logo / Icon (PNG/JPG/SVG, max 3MB)</label>
 <?php 
 $preview = !empty($edit['logo']) ? mediaUrl($edit['logo'], 'institutions') : '';
-renderFileUpload('logo', 'Logo / Icon', 'image/*', 'PNG, JPG, SVG · Transparent BG recommended · max 3MB', $preview);
+renderFilePicker('logo', 'Logo / Icon', 'image/*', 'PNG, JPG, SVG · Transparent BG recommended · max 3MB', $preview, 3);
 ?>
 <?php if (!empty($edit['logo'])): ?>
 <img src="<?= htmlspecialchars(mediaUrl($edit['logo'], 'institutions')) ?>" style="width:80px;height:80px;object-fit:contain;border-radius:12px;margin-top:10px;border:2px solid #1a2332;background:#fff;padding:6px"/>
