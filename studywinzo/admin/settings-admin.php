@@ -32,6 +32,7 @@ body{background:#070b14;color:#e2e8f0;font-family:'Inter',sans-serif;margin:0;mi
 .btn{background:#2563eb;color:#fff;padding:12px 24px;border-radius:12px;font-weight:600;font-size:14px;border:none;cursor:pointer}
 .btn:hover{background:#1d4ed8}
 </style>
+  <link rel="stylesheet" href="../assets/premium.css">
 </head><body>
 
 <header style="background:rgba(7,11,20,.9);backdrop-filter:blur(12px);border-bottom:1px solid #1a2332;padding:16px 20px;position:sticky;top:0;z-index:10">

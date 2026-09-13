@@ -37,6 +37,7 @@ body{font-family:'Inter',sans-serif;background:#030605;color:#fff;min-height:100
 .inst-logo{width:82px;height:82px;border-radius:20px;background:#ffffff;border:2px solid #2cee82;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:12px;padding:6px}
 .inst-logo img{width:100%;height:100%;object-fit:contain}
 </style>
+  <link rel="stylesheet" href="assets/premium.css">
 </head>
 <body>
 <div style="max-width:430px;margin:0 auto;min-height:100vh;background:#050705;position:relative;overflow:hidden;padding-bottom:40px">

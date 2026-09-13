@@ -82,6 +82,7 @@ video{width:100%;display:block;background:#000;max-height:70vh;object-fit:contai
 .quality-pop{position:absolute;bottom:90px;right:16px;background:rgba(10,15,12,.98);border:1px solid #1f332a;border-radius:14px;padding:8px;display:none;z-index:20;min-width:120px;box-shadow:0 15px 40px rgba(0,0,0,.8)}
 .quality-pop.show{display:block}
 </style>
+  <link rel="stylesheet" href="assets/premium.css">
 </head>
 <body>
 

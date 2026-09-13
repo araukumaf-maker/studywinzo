@@ -236,6 +236,7 @@ body{background:#070b14;color:#e2e8f0;margin:0;padding-bottom:80px;min-height:10
 .btn-g{background:linear-gradient(135deg,#10b981,#059669);color:#fff}
 .btn-c{background:#1e293b;color:#cbd5e1}
 </style>
+  <link rel="stylesheet" href="../assets/premium.css">
 </head>
 <body>
 

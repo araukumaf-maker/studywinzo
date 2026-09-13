@@ -80,6 +80,7 @@ body{background:#030605;color:#fff;min-height:100vh;overflow-x:hidden}
 .no-content h3{font-size:16px;font-weight:700;color:#94a3b8;margin-bottom:6px}
 .no-content p{font-size:13px}
 </style>
+  <link rel="stylesheet" href="assets/premium.css">
 </head>
 <body>
 

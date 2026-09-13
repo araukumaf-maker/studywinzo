@@ -107,6 +107,7 @@ body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; backgrou
 .card-neon-border { background: linear-gradient(180deg, rgba(168,85,247,0.45) 0%, rgba(79,70,229,0.15) 45%, rgba(147,51,234,0.25) 100%); padding:1px; border-radius:28px; }
 .input-box-glow:focus-within { box-shadow: 0 0 0 2px rgba(168,85,247,0.7), 0 0 16px -2px rgba(168,85,247,0.45); border-color:#a855f7 !important; }
 </style>
+  <link rel="stylesheet" href="assets/premium.css">
 </head>
 <body class="min-h-screen text-slate-100 flex flex-col items-center justify-between antialiased overflow-x-hidden relative">
 

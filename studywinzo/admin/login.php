@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
 <title>Admin Login</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>body{font-family:system-ui,sans-serif;background:#0a0f1a;min-height:100vh}</style>
+  <link rel="stylesheet" href="../assets/premium.css">
 </head><body class="flex items-center justify-center p-4">
 <div class="w-full max-w-sm bg-[#111827] border border-slate-700 rounded-2xl p-7 shadow-2xl">
 <h1 class="text-xl font-bold text-white text-center mb-1">Admin Panel</h1>

@@ -76,6 +76,7 @@ body{background:#070b14;color:#e2e8f0;margin:0;min-height:100vh}
 .btn-gray{background:#1e293b;color:#cbd5e1;box-shadow:none}
 .btn-danger{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.3);padding:7px 14px;border-radius:10px;font-size:12px;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
 </style>
+  <link rel="stylesheet" href="../assets/premium.css">
 </head><body>
 
 <header style="position:sticky;top:0;z-index:50;background:rgba(7,11,20,.9);backdrop-filter:blur(12px);border-bottom:1px solid #1a2332;padding:14px 20px">

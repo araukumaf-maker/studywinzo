@@ -124,6 +124,7 @@ body{background:#06050b;color:#fff;min-height:100vh;margin:0;display:flex;align-
 .submit-btn{width:100%;padding:14px;border-radius:14px;border:none;background:linear-gradient(135deg,#7c3aed,#4f46e5);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px}
 .submit-btn:disabled{opacity:.6}
 </style>
+  <link rel="stylesheet" href="assets/premium.css">
 </head>
 <body>
 <div class="orb orb1"></div>

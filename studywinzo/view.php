@@ -94,6 +94,7 @@ body{background:#0a0f1a;color:#fff;min-height:100vh;overflow-x:hidden;display:fl
 .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-100px);background:#111827;border:1px solid rgba(16,185,129,.5);color:#fff;padding:10px 18px;border-radius:30px;font-size:12px;font-weight:700;z-index:200;box-shadow:0 12px 32px rgba(0,0,0,.4);transition:transform .3s}
 .toast.show{transform:translateX(-50%) translateY(0)}
 </style>
+  <link rel="stylesheet" href="assets/premium.css">
 </head>
 <body>
 

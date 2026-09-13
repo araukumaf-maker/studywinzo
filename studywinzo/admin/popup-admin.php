@@ -49,6 +49,7 @@ if (isset($_GET['clear_image'])) {
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <?php renderPremiumCSS(); ?>
 <?php require_once '_direct_upload.php'; ?>
+  <link rel="stylesheet" href="../assets/premium.css">
 </head>
 <body>
 

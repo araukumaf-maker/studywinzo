@@ -124,6 +124,7 @@ body{background:#070b14;color:#e2e8f0;margin:0;padding-bottom:80px;min-height:10
 .color-preset{width:32px;height:32px;border-radius:8px;border:2px solid transparent;cursor:pointer;padding:0}
 .color-preset.active{border-color:#fff}
 </style>
+  <link rel="stylesheet" href="../assets/premium.css">
 </head>
 <body>
 
