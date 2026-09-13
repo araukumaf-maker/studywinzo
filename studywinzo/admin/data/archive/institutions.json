@@ -1,0 +1,58 @@
+[
+    {
+        "id": "inst_pw",
+        "name": "Physics Wallah",
+        "logo": "f_1789219427_32edf2ae.png",
+        "color": "#2cee82",
+        "order": 1
+    },
+    {
+        "id": "inst_nt",
+        "name": "Next Toppers",
+        "logo": "",
+        "color": "#2cee82",
+        "order": 2
+    },
+    {
+        "id": "inst_mj",
+        "name": "Mission JEET",
+        "logo": "",
+        "color": "#2cee82",
+        "order": 3
+    },
+    {
+        "id": "inst_ms",
+        "name": "Master Sahab",
+        "logo": "",
+        "color": "#2cee82",
+        "order": 4
+    },
+    {
+        "id": "inst_vb",
+        "name": "Vibrant",
+        "logo": "",
+        "color": "#2cee82",
+        "order": 5
+    },
+    {
+        "id": "inst_pb",
+        "name": "Panda Books",
+        "logo": "",
+        "color": "#2cee82",
+        "order": 6
+    },
+    {
+        "id": "inst_uc",
+        "name": "Unacademy",
+        "logo": "",
+        "color": "#2cee82",
+        "order": 7
+    },
+    {
+        "id": "inst_rwa",
+        "name": "RWA",
+        "logo": "",
+        "color": "#2cee82",
+        "order": 8
+    }
+]

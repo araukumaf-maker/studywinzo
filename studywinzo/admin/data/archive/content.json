@@ -1,0 +1,27 @@
+[
+    {
+        "id": "ct_ae22e8baa9",
+        "chapterId": "c_fb1c325985",
+        "type": "note",
+        "title": "Bsj",
+        "description": "",
+        "file": "f_1789236484_ddf40baf.pdf",
+        "video_url": "",
+        "external_url": "",
+        "created": "2026-09-12 18:08:04",
+        "updated": "2026-09-12 18:08:04"
+    },
+    {
+        "id": "ct_6a6b4bebe9",
+        "chapterId": "c_fb1c325985",
+        "type": "video",
+        "title": "Ebej",
+        "description": "",
+        "file": "",
+        "video_url": "https://www.youtube.com/embed/_2JjY5w0LA4",
+        "external_url": "",
+        "thumbnail": "f_1789236859_208128a6.jpg",
+        "created": "2026-09-12 18:14:19",
+        "updated": "2026-09-12 18:14:19"
+    }
+]

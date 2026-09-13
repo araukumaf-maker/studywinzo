@@ -1,0 +1,87 @@
+{
+    "app_name": "StudyWinzo",
+    "tagline": "All Batches Free Forever",
+    "subtitle": "Premium Education For Everyone, Free",
+    "batches": [
+        {
+            "id": "physics-wallah",
+            "name": "Physics Wallah",
+            "icon": "pw",
+            "color": "#2cee82",
+            "free": true,
+            "desc": "Complete JEE/NEET batches"
+        },
+        {
+            "id": "next-toppers",
+            "name": "Next Toppers",
+            "icon": "nt",
+            "color": "#2cee82",
+            "free": true,
+            "desc": "Class 9-12 all subjects"
+        },
+        {
+            "id": "mission-jeet",
+            "name": "Mission JEET",
+            "icon": "mj",
+            "color": "#2cee82",
+            "free": true,
+            "desc": "JEE Advanced complete"
+        },
+        {
+            "id": "master-sahab",
+            "name": "Master Sahab",
+            "icon": "ms",
+            "color": "#2cee82",
+            "free": true,
+            "desc": "Foundation courses"
+        },
+        {
+            "id": "vibrant",
+            "name": "Vibrant Academy",
+            "icon": "vb",
+            "color": "#2cee82",
+            "free": true,
+            "desc": "CBSE + JEE"
+        },
+        {
+            "id": "panda-books",
+            "name": "Panda Books",
+            "icon": "pb",
+            "color": "#2cee82",
+            "free": true,
+            "desc": "Free PDF notes"
+        },
+        {
+            "id": "apni-kaksha",
+            "name": "Apni Kaksha",
+            "icon": "ak",
+            "color": "#2cee82",
+            "free": true,
+            "desc": "Free video lectures"
+        },
+        {
+            "id": "physics-guru",
+            "name": "Physics Guru",
+            "icon": "pg",
+            "color": "#2cee82",
+            "free": true,
+            "desc": "Physics full course"
+        },
+        {
+            "id": "chemistry-adda",
+            "name": "Chemistry Adda",
+            "icon": "ca",
+            "color": "#2cee82",
+            "free": true,
+            "desc": "Chemistry complete"
+        },
+        {
+            "id": "maths-master",
+            "name": "Maths Master",
+            "icon": "mm",
+            "color": "#2cee82",
+            "free": true,
+            "desc": "Maths for JEE/NEET"
+        }
+    ]
+}

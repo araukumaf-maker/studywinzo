@@ -1,0 +1,24 @@
+# User data — private rakho
+admin/data/*.json
+admin/uploads/batches/*
+admin/uploads/logos/*
+admin/uploads/notes/*
+admin/uploads/dpp/*
+admin/uploads/popups/*
+admin/uploads/thumbnails/*
+admin/uploads/institutions/*
+!admin/uploads/.gitkeep
+
+# Logs & backups
+*.log
+*.bak
+*.backup*
+hls_proxy.log
+api_error.log
+
+# Ngrok binary (30MB+)
+ngrok
+ngrok-*.tgz
+
+# System
+.DS_Store
