@@ -57,7 +57,19 @@ if ($action === 'save_batch') {
     
     $img = $_POST['existing_image'] ?? '';
     if (!empty($_FILES['image']['tmp_name'])) {
-        $cloud = cloudUpload($_FILES['image']['tmp_name'], 'image', 'studywinzo/batches');
+        if (($_FILES['image']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+            jsonOut(['success'=>false, 'error'=>'Thumbnail upload failed']);
+        }
+        $tmp = $_FILES['image']['tmp_name'];
+        $mime = function_exists('mime_content_type') ? (mime_content_type($tmp) ?: '') : '';
+        $allowedMimes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+        if ($mime && !in_array($mime, $allowedMimes, true)) {
+            jsonOut(['success'=>false, 'error'=>'Thumbnail must be JPG, PNG, WEBP or GIF']);
+        }
+        if ((int)($_FILES['image']['size'] ?? 0) > 5 * 1024 * 1024) {
+            jsonOut(['success'=>false, 'error'=>'Thumbnail must be 5MB or smaller']);
+        }
+        $cloud = cloudUpload($tmp, 'image', 'studywinzo/batches');
         if ($cloud['success']) $img = $cloud['url'];
         else jsonOut(['success'=>false, 'error'=>'Image: '.$cloud['error']]);
     }

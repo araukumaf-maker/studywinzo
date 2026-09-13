@@ -321,10 +321,8 @@ function openBatchModal(){
   document.getElementById('batchName').value = '';
   document.getElementById('batchTag').value = '';
   document.getElementById('batchColor').value = '#2cee82';
-  document.getElementById('imgPrev').style.display = 'none';
-  document.getElementById('imgPlaceholder').style.display = 'flex';
-  document.getElementById('imgHint').textContent = 'Tap to upload thumbnail';
-  document.getElementById('imgBox').classList.remove('has-img');
+  // Reset the shared uploader rendered by mUpload().
+  if (window.mupClear) mupClear('image');
   document.getElementById('batchModal').classList.add('show');
 }
 
@@ -341,31 +339,28 @@ function editBatch(id){
   document.getElementById('batchName').value = b.name || '';
   document.getElementById('batchTag').value = b.subject || '';
   document.getElementById('batchColor').value = b.color || '#2cee82';
+  // Show an existing thumbnail inside the shared uploader preview.
   if (b.image) {
-    document.getElementById('imgPrev').src = mediaSrc(b.image, 'batches');
-    document.getElementById('imgPrev').style.display = 'block';
-    document.getElementById('imgPlaceholder').style.display = 'none';
-    document.getElementById('imgHint').textContent = 'Click to change';
-    document.getElementById('imgBox').classList.add('has-img');
-  } else {
-    document.getElementById('imgPrev').style.display = 'none';
-    document.getElementById('imgPlaceholder').style.display = 'flex';
-    document.getElementById('imgBox').classList.remove('has-img');
+    var existingPreview = document.getElementById('mup-prev-image');
+    var existingImg = document.getElementById('mup-img-image');
+    var existingName = document.getElementById('mup-name-image');
+    var existingSize = document.getElementById('mup-size-image');
+    if (existingPreview && existingImg) {
+      existingImg.src = mediaSrc(b.image, 'batches');
+      existingImg.style.display = 'block';
+      existingPreview.style.display = 'flex';
+      if (existingName) existingName.textContent = 'Current thumbnail';
+      if (existingSize) existingSize.textContent = 'Choose a new image to replace it';
+    }
+  } else if (window.mupClear) {
+    mupClear('image');
   }
   document.getElementById('batchModal').classList.add('show');
 }
 
 function previewImg(input){
-  if (!input.files || !input.files[0]) return;
-  var r = new FileReader();
-  r.onload = function(e){
-    document.getElementById('imgPrev').src = e.target.result;
-    document.getElementById('imgPrev').style.display = 'block';
-    document.getElementById('imgPlaceholder').style.display = 'none';
-    document.getElementById('imgHint').textContent = input.files[0].name;
-    document.getElementById('imgBox').classList.add('has-img');
-  };
-  r.readAsDataURL(input.files[0]);
+  // Kept for compatibility with older pages; mUpload() calls mupChange().
+  if (window.mupChange) mupChange(input, 'image');
 }
 
 function pickColor(c, el){
