@@ -1,4 +1,7 @@
 # User data — private rakho
+.env
+.env.*
+!.env.example
 admin/data/*.json
 admin/uploads/batches/*
 admin/uploads/logos/*
