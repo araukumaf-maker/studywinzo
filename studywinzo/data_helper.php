@@ -66,5 +66,6 @@ function mediaUrl($filename, $folder = 'notes') {
     if (empty($filename)) return '';
     if (preg_match('#^https?://#i', $filename)) return $filename;
     $cfg = supabase_config();
-    return "{$cfg['url']}/storage/v1/object/public/studywinzo/{$folder}/{$filename}";
+    $bucket = rawurlencode($cfg['bucket']);
+    return "{$cfg['url']}/storage/v1/object/public/{$bucket}/{$folder}/{$filename}";
 }

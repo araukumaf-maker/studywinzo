@@ -105,7 +105,7 @@ body{background:#0a0f1a;color:#fff;min-height:100vh;overflow-x:hidden;display:fl
 <p><?= $isDpp ? '📝 DPP' : '📄 NOTE' ?></p>
 </div>
 <?php if ($fileExists): ?>
-<a href="<?= htmlspecialchars($filePath) ?>" download class="hdr-btn">
+<a href="<?= htmlspecialchars('pdf_proxy.php?url=' . rawurlencode($filePath) . '&download=1', ENT_QUOTES, 'UTF-8') ?>" download class="hdr-btn">
 <i class="ph-bold ph-download-simple"></i> Download
 </a>
 <?php endif; ?>
@@ -165,7 +165,7 @@ var holdSpeed = 1;
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
 
-var pdfUrl = '<?= htmlspecialchars($filePath) ?>';
+var pdfUrl = '<?= htmlspecialchars('pdf_proxy.php?url=' . rawurlencode($filePath), ENT_QUOTES, 'UTF-8') ?>';
 
 pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf){
     pdfDoc = pdf;
@@ -175,9 +175,10 @@ pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf){
     document.getElementById('pageNav').classList.add('show');
     buildPages();
 }).catch(function(err){
-    document.getElementById('loadingText').textContent = '❌ Failed to load PDF';
+    document.getElementById('loadingText').textContent = '❌ PDF load failed. Please retry.';
     document.getElementById('loadingText').style.color = '#f87171';
-    console.error(err);
+    document.getElementById('loadingBar').style.background = '#ef4444';
+    console.error('PDF viewer error:', err);
 });
 
 function buildPages(){
