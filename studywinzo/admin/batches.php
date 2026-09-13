@@ -151,7 +151,7 @@ body{background:#070b14;color:#e2e8f0;margin:0;padding-bottom:80px;min-height:10
 <div class="inst-pill" data-id="<?= htmlspecialchars($ins['id']) ?>" onclick="selectInst(this, '<?= htmlspecialchars($ins['id']) ?>')">
 <div class="inst-pill-logo">
 <?php if (!empty($ins['logo'])): ?>
-<img src="uploads/institutions/<?= htmlspecialchars($ins['logo']) ?>"/>
+<img src="<?= htmlspecialchars(mediaUrl($ins['logo'], 'institutions')) ?>"/>
 <?php else: ?>
 <span><?= strtoupper(substr($ins['name'],0,1)) ?></span>
 <?php endif; ?>
@@ -259,7 +259,7 @@ function renderBatches(){
   var html = '';
   batchCache.forEach(function(b){
     var color = b.color || '#2cee82';
-    var imgHtml = b.image ? '<img src="uploads/batches/' + b.image + '"/>' : '<span>' + b.name.charAt(0).toUpperCase() + '</span>';
+    var imgHtml = b.image ? '<img src="' + mediaSrc(b.image, 'batches') + '"/>' : '<span>' + b.name.charAt(0).toUpperCase() + '</span>';
     
     html += '<div class="batch-item" style="--batch-color:' + color + '">';
     html += '<div class="batch-head">';
@@ -301,6 +301,9 @@ function renderBatches(){
 }
 
 function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function mediaSrc(value, folder){
+  return /^https?:\/\//i.test(String(value || '')) ? value : 'uploads/' + folder + '/' + value;
+}
 
 function toggleChapters(bid, btn){
   var el = document.getElementById('ch-' + bid);
@@ -339,7 +342,7 @@ function editBatch(id){
   document.getElementById('batchTag').value = b.subject || '';
   document.getElementById('batchColor').value = b.color || '#2cee82';
   if (b.image) {
-    document.getElementById('imgPrev').src = 'uploads/batches/' + b.image;
+    document.getElementById('imgPrev').src = mediaSrc(b.image, 'batches');
     document.getElementById('imgPrev').style.display = 'block';
     document.getElementById('imgPlaceholder').style.display = 'none';
     document.getElementById('imgHint').textContent = 'Click to change';

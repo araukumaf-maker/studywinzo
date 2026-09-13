@@ -896,7 +896,7 @@ function renderAllContent(){
       var ic = icons[it.type] || icons.note;
       var thumbHtml = '';
       if (it.type === 'video' && it.thumbnail) {
-        thumbHtml = '<img src="uploads/thumbnails/' + it.thumbnail + '"/>';
+        thumbHtml = '<img src="' + (/^https?:\/\//i.test(String(it.thumbnail)) ? it.thumbnail : 'uploads/thumbnails/' + it.thumbnail) + '"/>';
       } else if (it.type === 'video' && it.video_url) {
         var m = it.video_url.match(/embed\/([a-zA-Z0-9_-]+)/);
         if (m) thumbHtml = '<img src="https://img.youtube.com/vi/' + m[1] + '/mqdefault.jpg"/>';
@@ -984,7 +984,7 @@ function openEditItem(id){
       if (t === 'video') {
         var thumbSrc = '';
         if (d.item.thumbnail) {
-          thumbSrc = 'uploads/thumbnails/' + d.item.thumbnail;
+          thumbSrc = /^https?:\/\//i.test(String(d.item.thumbnail)) ? d.item.thumbnail : 'uploads/thumbnails/' + d.item.thumbnail;
         } else if (d.item.video_url) {
           var m = d.item.video_url.match(/embed\/([a-zA-Z0-9_-]+)/);
           if (m) thumbSrc = 'https://img.youtube.com/vi/' + m[1] + '/mqdefault.jpg';

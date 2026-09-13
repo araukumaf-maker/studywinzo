@@ -1,9 +1,9 @@
 <?php
 ini_set('display_errors', 0);
 $adminData = __DIR__.'/admin/data';
+require_once __DIR__.'/data_helper.php';
 $batchId = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['id'] ?? '');
 
-require_once __DIR__.'/data_helper.php';
 function loadJSON($f, $d=[]){ return getJSON(basename($f), $d); }
 
 $batches = loadJSON($adminData.'/batches.json');
@@ -96,7 +96,7 @@ body{background:#030605;color:#fff;min-height:100vh;overflow-x:hidden}
 <div class="batch-hero">
 <div class="batch-hero-thumb">
 <?php if (!empty($batch['image'])): ?>
-<img src="admin/uploads/batches/<?= htmlspecialchars($batch['image']) ?>" decoding="sync" fetchpriority="high" loading="eager"/>
+<img src="<?= htmlspecialchars(mediaUrl($batch['image'], 'batches')) ?>" decoding="sync" fetchpriority="high" loading="eager"/>
 <?php else: ?>
 <span><?= strtoupper(substr($batch['name'],0,1)) ?></span>
 <?php endif; ?>

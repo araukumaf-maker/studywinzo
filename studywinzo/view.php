@@ -10,9 +10,9 @@ if (!$item) { header('Location: index.php'); exit; }
 $type = $item['type'] ?? '';
 $file = $item['file'] ?? '';
 $isDpp = ($type === 'dpp');
-$folder = $isDpp ? 'admin/uploads/dpp/' : 'admin/uploads/notes/';
-$filePath = $file ? $folder.$file : '';
-$fileExists = $file && file_exists(__DIR__.'/'.$filePath);
+$folder = $isDpp ? 'dpp' : 'notes';
+$filePath = $file ? mediaUrl($file, $folder) : '';
+$fileExists = $file && $filePath !== '';
 $title = $item['title'] ?? 'Document';
 ?>
 <!DOCTYPE html>

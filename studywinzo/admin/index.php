@@ -157,7 +157,7 @@ $instCount = count($insts);
 <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px">
 <div style="width:60px;height:60px;border-radius:14px;overflow:hidden;flex-shrink:0;background:#fff;border:2px solid <?= htmlspecialchars($b['color']??'#2cee82') ?>;display:flex;align-items:center;justify-content:center;padding:4px">
 <?php if (!empty($b['image'])): ?>
-<img src="uploads/batches/<?= htmlspecialchars($b['image']) ?>" style="width:100%;height:100%;object-fit:cover;border-radius:10px"/>
+<img src="<?= htmlspecialchars(mediaUrl($b['image'], 'batches')) ?>" style="width:100%;height:100%;object-fit:cover;border-radius:10px"/>
 <?php else: ?>
 <span style="font-weight:900;color:<?= htmlspecialchars($b['color']??'#2cee82') ?>;font-size:22px"><?= strtoupper(substr($b['name'],0,1)) ?></span>
 <?php endif; ?>

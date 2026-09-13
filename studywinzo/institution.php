@@ -140,7 +140,7 @@ body{background:#06050b;color:#fff;min-height:100vh;margin:0;display:flex;align-
 
 <div class="inst-logo">
 <?php if (!empty($inst['logo'])): ?>
-<img src="admin/uploads/institutions/<?= htmlspecialchars($inst['logo']) ?>" style="width:100%;height:100%;object-fit:contain"/>
+<img src="<?= htmlspecialchars(mediaUrl($inst['logo'], 'institutions')) ?>" style="width:100%;height:100%;object-fit:contain"/>
 <?php else: ?>
 <span style="font-size:22px;font-weight:900;color:#2cee82"><?= strtoupper(substr($inst['name'],0,1)) ?></span>
 <?php endif; ?>
@@ -236,7 +236,7 @@ Verify & Continue <i class="ph-bold ph-check"></i>
 <a href="batch.php?id=<?= urlencode($b['id']) ?>" class="batch-card" data-name="<?= htmlspecialchars(strtolower($b['name'])) ?>">
 <div class="batch-thumb">
 <?php if (!empty($b['image'])): ?>
-<img src="admin/uploads/batches/<?= htmlspecialchars($b['image']) ?>" decoding="sync" fetchpriority="high" loading="eager"/>
+<img src="<?= htmlspecialchars(mediaUrl($b['image'], 'batches')) ?>" decoding="sync" fetchpriority="high" loading="eager"/>
 <?php else: ?>
 <span class="letter"><?= strtoupper(substr($b['name'],0,1)) ?></span>
 <?php endif; ?>

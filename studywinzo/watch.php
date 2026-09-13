@@ -1,9 +1,9 @@
 <?php
 ini_set('display_errors', 0);
 $adminData = __DIR__.'/admin/data';
+require_once __DIR__.'/data_helper.php';
 $vidId = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['id'] ?? '');
 
-require_once __DIR__.'/data_helper.php';
 function loadJSON($f, $d=[]){ return getJSON(basename($f), $d); }
 
 $content = loadJSON($adminData.'/content.json');

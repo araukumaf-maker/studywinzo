@@ -164,7 +164,11 @@ if ($action === 'bulk_save') {
                 if (!in_array($ext, $allowed)) { $errors[] = "$name invalid format"; continue; }
                 
                 $finalName = 'f_'.time().'_'.$i.'_'.bin2hex(random_bytes(4)).'.'.$ext;
-                if (!move_uploaded_file($tmp, $dest.'/'.$finalName)) { $errors[] = "$name move failed"; continue; }
+                $folder = $ctype === 'dpp' ? 'dpp' : 'notes';
+                $remotePath = $folder.'/'.$finalName;
+                $remoteUrl = supabaseUpload($tmp, $remotePath, mime_content_type($tmp) ?: 'application/octet-stream');
+                if (!$remoteUrl) { $errors[] = "$name Supabase upload failed"; continue; }
+                @move_uploaded_file($tmp, $dest.'/'.$finalName);
                 
                 $title = $titleBase ? ($count > 1 ? $titleBase.' - '.($i+1) : $titleBase) : pathinfo($name, PATHINFO_FILENAME);
                 $content[] = [
@@ -173,7 +177,7 @@ if ($action === 'bulk_save') {
                     'type' => $ctype,
                     'title' => $title,
                     'description' => '',
-                    'file' => $finalName,
+                    'file' => $remoteUrl,
                     'video_url' => '',
                     'external_url' => '',
                     'thumbnail' => '',

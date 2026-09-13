@@ -267,11 +267,11 @@ body{background:#0a0f1a;color:#e2e8f0;margin:0;padding-bottom:60px;min-height:10
     if ($type === 'institutions') {
         $title = $it['name'];
         $sub = '<span class="badge">' . substr($it['id'], -6) . '</span>';
-        $iconHtml = !empty($it['logo']) ? '<img src="uploads/institutions/'.htmlspecialchars($it['logo']).'"/>' : '<i class="ph-bold ph-buildings"></i>';
+        $iconHtml = !empty($it['logo']) ? '<img src="'.htmlspecialchars(mediaUrl($it['logo'], 'institutions')).'"/>' : '<i class="ph-bold ph-buildings"></i>';
     } elseif ($type === 'batches') {
         $title = $it['name'];
         $sub = '<span class="badge">' . htmlspecialchars($it['_instName']) . '</span>';
-        $iconHtml = !empty($it['image']) ? '<img src="uploads/batches/'.htmlspecialchars($it['image']).'"/>' : '<i class="ph-bold ph-stack"></i>';
+        $iconHtml = !empty($it['image']) ? '<img src="'.htmlspecialchars(mediaUrl($it['image'], 'batches')).'"/>' : '<i class="ph-bold ph-stack"></i>';
     } elseif ($type === 'subjects') {
         $title = $it['name'];
         $sub = '<span class="badge">' . htmlspecialchars($it['_batchName']) . '</span>';

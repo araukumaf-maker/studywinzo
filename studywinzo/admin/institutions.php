@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST' && ($_POST['action'] ?? '')==='save') {
         $logo = $_POST['existing_logo'] ?? '';
         if (!empty($_FILES['logo']['tmp_name'])) {
             $up = handleUpload('logo', __DIR__.'/uploads/institutions', ['jpg','jpeg','png','webp','svg'], 3);
-            if ($up['success']) $logo = $up['filename'];
+            if ($up['success']) $logo = $up['url'] ?? $up['filename'];
             else $err = 'Logo: '.$up['error'];
         }
         if (!$err) {
@@ -122,11 +122,11 @@ body{background:#070b14;color:#e2e8f0;margin:0;min-height:100vh}
 <div>
 <label style="display:block;font-size:11px;font-weight:700;color:#94a3b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">Logo / Icon (PNG/JPG/SVG, max 3MB)</label>
 <?php 
-$preview = !empty($edit['logo']) ? 'uploads/institutions/'.$edit['logo'] : '';
+$preview = !empty($edit['logo']) ? mediaUrl($edit['logo'], 'institutions') : '';
 renderFileUpload('logo', 'Logo / Icon', 'image/*', 'PNG, JPG, SVG · Transparent BG recommended · max 3MB', $preview);
 ?>
 <?php if (!empty($edit['logo'])): ?>
-<img src="uploads/institutions/<?= htmlspecialchars($edit['logo']) ?>" style="width:80px;height:80px;object-fit:contain;border-radius:12px;margin-top:10px;border:2px solid #1a2332;background:#fff;padding:6px"/>
+<img src="<?= htmlspecialchars(mediaUrl($edit['logo'], 'institutions')) ?>" style="width:80px;height:80px;object-fit:contain;border-radius:12px;margin-top:10px;border:2px solid #1a2332;background:#fff;padding:6px"/>
 <?php endif; ?>
 </div>
 <div>
@@ -164,7 +164,7 @@ renderFileUpload('logo', 'Logo / Icon', 'image/*', 'PNG, JPG, SVG · Transparent
 <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
 <div style="width:64px;height:64px;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;border:2px solid <?= htmlspecialchars($x['color']) ?>40;padding:6px">
 <?php if (!empty($x['logo'])): ?>
-<img src="uploads/institutions/<?= htmlspecialchars($x['logo']) ?>" style="width:100%;height:100%;object-fit:contain"/>
+<img src="<?= htmlspecialchars(mediaUrl($x['logo'], 'institutions')) ?>" style="width:100%;height:100%;object-fit:contain"/>
 <?php else: ?>
 <i class="ph-bold ph-buildings" style="font-size:28px;color:<?= htmlspecialchars($x['color']) ?>"></i>
 <?php endif; ?>

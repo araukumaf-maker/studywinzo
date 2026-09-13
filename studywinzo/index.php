@@ -50,7 +50,7 @@ body{font-family:'Inter',sans-serif;background:#030605;color:#fff;min-height:100
 </button>
 <div style="text-align:center;flex:1;padding:0 10px">
 <?php if($logo): ?>
-<img src="admin/uploads/logos/<?= htmlspecialchars($logo) ?>" style="width:56px;height:56px;border-radius:16px;object-fit:contain;background:#fff;padding:4px;border:2px solid #2cee82;margin:0 auto"/>
+<img src="<?= htmlspecialchars(mediaUrl($logo, 'logos')) ?>" style="width:56px;height:56px;border-radius:16px;object-fit:contain;background:#fff;padding:4px;border:2px solid #2cee82;margin:0 auto"/>
 <?php else: ?>
 <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#0e1f1a,#10b981);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#2cee82;border:2px solid #2cee82;margin:0 auto">SW</div>
 <?php endif; ?>
@@ -77,7 +77,7 @@ body{font-family:'Inter',sans-serif;background:#030605;color:#fff;min-height:100
 <a href="institution.php?id=<?= urlencode($x['id']) ?>" class="inst-card" data-name="<?= htmlspecialchars($x['name']) ?>" data-inst="institution" data-name="<?= htmlspecialchars($x['name']) ?>" data-inst="institution">
 <div class="inst-logo" style="border-color:<?= htmlspecialchars($x['color']) ?>">
 <?php if (!empty($x['logo'])): ?>
-<img src="admin/uploads/institutions/<?= htmlspecialchars($x['logo']) ?>"/>
+<img src="<?= htmlspecialchars(mediaUrl($x['logo'], 'institutions')) ?>"/>
 <?php else: ?>
 <i class="ph-bold ph-buildings" style="font-size:36px;color:<?= htmlspecialchars($x['color']) ?>"></i>
 <?php endif; ?>

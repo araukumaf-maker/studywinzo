@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         $up = handleUpload('logo', UPLOAD_LOGOS, ['jpg','jpeg','png','webp','svg'], 5);
         if ($up['success']) {
             if (!empty($settings['logo']) && file_exists(UPLOAD_LOGOS.'/'.$settings['logo'])) @unlink(UPLOAD_LOGOS.'/'.$settings['logo']);
-            $settings['logo'] = $up['filename'];
+            $settings['logo'] = $up['url'] ?? $up['filename'];
         } else $err = 'Logo: '.$up['error'];
     }
     if (!$err) { saveJSON('settings.json', $settings); $msg = 'Settings saved'; }
@@ -55,14 +55,14 @@ body{background:#070b14;color:#e2e8f0;font-family:'Inter',sans-serif;margin:0;mi
 <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
 <div style="width:100px;height:100px;border-radius:20px;background:#070b14;border:2px solid #1a2332;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0">
 <?php if (!empty($settings['logo'])): ?>
-<img src="uploads/logos/<?= htmlspecialchars($settings['logo']) ?>" style="width:100%;height:100%;object-fit:contain;padding:8px"/>
+<img src="<?= htmlspecialchars(mediaUrl($settings['logo'], 'logos')) ?>" style="width:100%;height:100%;object-fit:contain;padding:8px"/>
 <?php else: ?>
 <i class="ph-bold ph-image" style="font-size:36px;color:#475569"></i>
 <?php endif; ?>
 </div>
 <div style="flex:1;min-width:200px">
 <label style="display:block;font-size:12px;font-weight:600;color:#94a3b8;margin-bottom:8px">Institution Logo (PNG/JPG/SVG, max 5MB)</label>
-<?php mUpload("logo", "Institution Logo", "image/*", "PNG, JPG, SVG · Transparent background works best · max 3MB", !empty($settings["logo"]) ? "uploads/logos/".htmlspecialchars($settings["logo"]) : ""); ?>
+<?php mUpload("logo", "Institution Logo", "image/*", "PNG, JPG, SVG · Transparent background works best · max 3MB", !empty($settings["logo"]) ? mediaUrl($settings["logo"], 'logos') : ""); ?>
 </div>
 </div>
 

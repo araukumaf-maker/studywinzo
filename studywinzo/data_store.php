@@ -3,29 +3,31 @@
  * Data store — Supabase Relational v2
  */
 
-require_once __DIR__.'/runtime_config.php';
-
 function supabase_config() {
-    static $config;
-
-    if ($config === null) {
-        $config = [
-            'url'           => rtrim(studywinzo_required_env('SUPABASE_URL'), '/'),
-            'secret'        => studywinzo_required_env('SUPABASE_API_KEY'),
-            'storage_token' => studywinzo_required_env('SUPABASE_STORAGE_TOKEN'),
-        ];
-    }
-
-    return $config;
+    $url = rtrim((string)(getenv('SUPABASE_URL') ?: ''), '/');
+    $publicKey = (string)(getenv('SUPABASE_ANON_KEY') ?: getenv('SUPABASE_API_KEY') ?: getenv('SUPABASE_KEY') ?: '');
+    $serverKey = (string)(getenv('SUPABASE_SERVICE_ROLE_KEY') ?: getenv('SUPABASE_API_KEY') ?: $publicKey);
+    $storageKey = (string)(getenv('SUPABASE_STORAGE_TOKEN') ?: $serverKey);
+    return [
+        'url'           => $url,
+        'public_key'    => $publicKey,
+        'server_key'    => $serverKey,
+        'storage_key'   => $storageKey,
+        'bucket'        => (string)(getenv('SUPABASE_STORAGE_BUCKET') ?: 'studywinzo'),
+    ];
 }
 
 /** Core request handler */
 function supabase_request($method, $path, $body = null, $extraHeaders = []) {
     $cfg = supabase_config();
+    if (!$cfg['url'] || !$cfg['server_key']) {
+        error_log('Supabase is not configured. Set SUPABASE_URL and SUPABASE_KEY (or SUPABASE_ANON_KEY).');
+        return false;
+    }
     $ch = curl_init($cfg['url'] . '/rest/v1' . $path);
     $headers = array_merge([
-        'apikey: '        . $cfg['secret'],
-        'Authorization: Bearer ' . $cfg['secret'],
+        'apikey: '        . $cfg['server_key'],
+        'Authorization: Bearer ' . $cfg['server_key'],
         'Content-Type: application/json',
         'Accept: application/json',
         'Prefer: return=representation',
@@ -36,7 +38,7 @@ function supabase_request($method, $path, $body = null, $extraHeaders = []) {
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HTTPHEADER     => $headers,
         CURLOPT_TIMEOUT        => 20,
-        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYPEER => true,
     ]);
     if ($body !== null) {
         curl_setopt($ch, CURLOPT_POSTFIELDS, is_string($body) ? $body : json_encode($body));
@@ -105,7 +107,11 @@ function deleteRow($table, $id) {
 // ---------------------------------------------------------
 function supabaseUpload($localFilePath, $remoteFileName, $contentType = 'application/octet-stream') {
     $cfg = supabase_config();
-    $bucket = 'studywinzo';
+    if (!$cfg['url'] || !$cfg['server_key'] || !is_readable($localFilePath)) {
+        error_log('Supabase Storage is not configured or upload file is unreadable.');
+        return false;
+    }
+    $bucket = $cfg['bucket'];
     $url = "{$cfg['url']}/storage/v1/object/{$bucket}/{$remoteFileName}";
     
     $ch = curl_init($url);
@@ -113,13 +119,14 @@ function supabaseUpload($localFilePath, $remoteFileName, $contentType = 'applica
         CURLOPT_POST => true,
         CURLOPT_POSTFIELDS => file_get_contents($localFilePath),
         CURLOPT_HTTPHEADER => [
-            "Authorization: Bearer {$cfg['storage_token']}",
+            "apikey: {$cfg['storage_key']}",
+            "Authorization: Bearer {$cfg['storage_key']}",
             "Content-Type: {$contentType}",
             "x-upsert: true"
         ],
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_TIMEOUT => 60,
-        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYPEER => true,
     ]);
     $res = curl_exec($ch);
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);

@@ -45,7 +45,7 @@ function saveJSON($file, $data) {
             foreach ($data as $i) upsertRow('institutions', ['id'=>$i['id'],'name'=>$i['name']??'','logo'=>$i['logo']??'','color'=>$i['color']??'','sort_order'=>(int)($i['order']??0)]);
             return true;
         case 'batches':
-            foreach ($data as $i) upsertRow('batches', ['id'=>$i['id'],'institution_id'=>$i['institutionId']??null,'name'=>$i['name']??'','sort_order'=>(int)($i['order']??0)]);
+            foreach ($data as $i) upsertRow('batches', ['id'=>$i['id'],'institution_id'=>$i['institutionId']??null,'name'=>$i['name']??'','subject'=>$i['subject']??'','color'=>$i['color']??'','image'=>$i['image']??'','sort_order'=>(int)($i['order']??0)]);
             return true;
         case 'subjects':
             foreach ($data as $i) upsertRow('subjects', ['id'=>$i['id'],'batch_id'=>$i['batchId']??null,'name'=>$i['name']??'','sort_order'=>(int)($i['order']??0)]);

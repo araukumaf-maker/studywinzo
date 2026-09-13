@@ -108,15 +108,26 @@ if ($action === 'finalize') {
     }
     fclose($out);
 
+    // Wasmer's filesystem is ephemeral. Persist the completed file in
+    // Supabase before deleting the temporary local copy.
+    $remotePath = $meta['dest'].'/'.$finalName;
+    $remoteUrl = supabaseUpload($finalPath, $remotePath, $meta['type'] ?: 'application/octet-stream');
+    if (!$remoteUrl) {
+        @unlink($finalPath);
+        echo json_encode(['success'=>false,'error'=>'Supabase Storage upload failed']);
+        exit;
+    }
+
     // Cleanup
     @unlink($sessionDir.'/meta.json');
     @rmdir($sessionDir);
 
     echo json_encode([
         'success' => true,
-        'filename' => $finalName,
-        'size' => filesize($finalPath),
-        'path' => $finalName,
+        'filename' => $remoteUrl,
+        'url' => $remoteUrl,
+        'size' => $meta['size'],
+        'path' => $remotePath,
     ]);
     exit;
 }

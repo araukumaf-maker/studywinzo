@@ -117,7 +117,7 @@ if (isset($_GET['clear_image'])) {
 </div>
 <?php endif; ?>
 <?php 
-$currentPreview = !empty($popup['image']) ? 'uploads/popups/'.$popup['image'] : '';
+$currentPreview = !empty($popup['image']) ? mediaUrl($popup['image'], 'popups') : '';
 renderFileUpload('image', 'Popup Image', 'image/*', 'PNG, JPG, WEBP · 1200×600 recommended · max 5MB', $currentPreview);
 ?>
 </div>

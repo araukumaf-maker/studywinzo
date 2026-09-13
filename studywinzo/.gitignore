@@ -1,8 +1,7 @@
 # User data — private rakho
-.env
-.env.*
-!.env.example
 admin/data/*.json
+admin/data/*
+!admin/data/.gitkeep
 admin/uploads/batches/*
 admin/uploads/logos/*
 admin/uploads/notes/*
@@ -10,7 +9,14 @@ admin/uploads/dpp/*
 admin/uploads/popups/*
 admin/uploads/thumbnails/*
 admin/uploads/institutions/*
+admin/uploads/videos/*
+admin/data/chunks/*
 !admin/uploads/.gitkeep
+
+# Environment and local secrets
+.env
+.env.*
+!.env.example
 
 # Logs & backups
 *.log

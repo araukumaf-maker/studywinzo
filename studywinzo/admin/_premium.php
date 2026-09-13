@@ -158,7 +158,7 @@ function renderPremiumHeader($pageInfo, $settings, $popup, $currentPage){ ?>
 <div class="adm-brand">
 <div class="adm-brand-logo">
 <?php if (!empty($settings['logo'])): ?>
-<img src="uploads/logos/<?= htmlspecialchars($settings['logo']) ?>"/>
+<img src="<?= htmlspecialchars(mediaUrl($settings['logo'], 'logos')) ?>"/>
 <?php else: ?>
 <span style="font-weight:900;color:#3b82f6;font-size:18px">SW</span>
 <?php endif; ?>

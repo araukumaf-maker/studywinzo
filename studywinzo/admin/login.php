@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         session_write_close();
         header('Location: index.php'); exit;
     }
-    $err = 'Invalid credentials';
+    $err = 'Invalid credentials. Check ADMIN_USER and ADMIN_PASS in Wasmer environment variables.';
 }
 ?>
 <!DOCTYPE html><html><head><meta charset="utf-8"/>
@@ -24,8 +24,9 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
 <p class="text-slate-400 text-xs text-center mb-5">StudyWinzo</p>
 <?php if($err): ?><div class="mb-4 px-3 py-2 rounded-lg bg-red-500/10 border border-red-500/30 text-red-300 text-xs text-center"><?= htmlspecialchars($err) ?></div><?php endif; ?>
 <form method="POST" class="space-y-4">
-<input type="text" name="user" placeholder="Username" class="w-full bg-[#0a0f1a] border border-slate-700 text-white rounded-lg px-3 py-2.5 text-sm" required/>
-<input type="password" name="pass" placeholder="Password" class="w-full bg-[#0a0f1a] border border-slate-700 text-white rounded-lg px-3 py-2.5 text-sm" required/>
+<input type="text" name="user" value="admin" placeholder="Username" class="w-full bg-[#0a0f1a] border border-slate-700 text-white rounded-lg px-3 py-2.5 text-sm" required/>
+<input type="password" name="pass" placeholder="Admin password" class="w-full bg-[#0a0f1a] border border-slate-700 text-white rounded-lg px-3 py-2.5 text-sm" required/>
 <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 rounded-lg text-sm">Login</button>
 </form>
+<p class="text-center text-slate-500 text-[11px] mt-4">Credentials are configured in Wasmer environment variables.</p>
 </div></body></html>

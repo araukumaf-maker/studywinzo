@@ -1,10 +1,10 @@
 <?php
 ini_set('display_errors', 0);
 $adminData = __DIR__.'/admin/data';
+require_once __DIR__.'/data_helper.php';
 $chapterId = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['chapter'] ?? '');
 $batchId = preg_replace('/[^a-zA-Z0-9_]/','',$_GET['batch'] ?? '');
 
-require_once __DIR__.'/data_helper.php';
 function loadJSON($f, $d=[]){ return getJSON(basename($f), $d); }
 
 $chapters = loadJSON($adminData.'/chapters.json');
@@ -143,7 +143,7 @@ Video Lectures
 
 <div class="video-grid">
 <?php foreach ($videos as $i=>$vid):
-    $customThumb = !empty($vid['thumbnail']) ? 'admin/uploads/thumbnails/'.htmlspecialchars($vid['thumbnail']) : '';
+    $customThumb = !empty($vid['thumbnail']) ? mediaUrl($vid['thumbnail'], 'thumbnails') : '';
     $autoThumb = getThumb($vid['video_url'] ?? '');
     $thumb = $customThumb ?: $autoThumb;
     $isYt = strpos($vid['video_url'] ?? '', 'youtube') !== false || strpos($vid['video_url'] ?? '', 'youtu.be') !== false;
