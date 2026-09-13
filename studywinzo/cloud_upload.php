@@ -1,8 +1,10 @@
 <?php
+require_once __DIR__.'/runtime_config.php';
+
 function cloudUpload($filePath, $fileType = 'image', $folder = 'studywinzo') {
-    $cloudName = 'tfw0teo9';
-    $apiKey    = '519537719448766';
-    $apiSecret = 'E2hPyLeLJEghShQz_v_NmhO_7Wc';
+    $cloudName = studywinzo_required_env('CLOUDINARY_CLOUD_NAME');
+    $apiKey    = studywinzo_required_env('CLOUDINARY_API_KEY');
+    $apiSecret = studywinzo_required_env('CLOUDINARY_API_SECRET');
 
     if (!file_exists($filePath)) return ['success'=>false,'error'=>'File not found'];
 

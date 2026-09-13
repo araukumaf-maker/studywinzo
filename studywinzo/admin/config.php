@@ -7,8 +7,8 @@ error_reporting(E_ALL);
 require_once __DIR__.'/../data_helper.php';
 
 // Admin credentials
-define('ADMIN_USER', 'admin');
-define('ADMIN_PASS', 'admin123');
+define('ADMIN_USER', studywinzo_required_env('STUDYWINZO_ADMIN_USER'));
+define('ADMIN_PASS', studywinzo_required_env('STUDYWINZO_ADMIN_PASSWORD'));
 
 define('DATA_DIR', __DIR__.'/data');
 define('UPLOAD_BATCHES', __DIR__.'/uploads/batches');

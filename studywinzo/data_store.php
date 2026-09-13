@@ -3,12 +3,20 @@
  * Data store — Supabase Relational v2
  */
 
+require_once __DIR__.'/runtime_config.php';
+
 function supabase_config() {
-    return [
-        'url'           => 'https://getbmiorthitpqemydlk.supabase.co',
-        'secret'        => 'sb_publishable_lvKXKJPV1GRrEIVS0o0zYg_pc6wE9CF',
-        'storage_token' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdldGJtaW9ydGhpdHBxZW15ZGxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkyMzg4NDQsImV4cCI6MjEwNDgxNDg0NH0.AjQO0Mrq5tiuEOejh1c-WQMrAydxPy1CEcoNGJzUv38',
-    ];
+    static $config;
+
+    if ($config === null) {
+        $config = [
+            'url'           => rtrim(studywinzo_required_env('SUPABASE_URL'), '/'),
+            'secret'        => studywinzo_required_env('SUPABASE_API_KEY'),
+            'storage_token' => studywinzo_required_env('SUPABASE_STORAGE_TOKEN'),
+        ];
+    }
+
+    return $config;
 }
 
 /** Core request handler */
