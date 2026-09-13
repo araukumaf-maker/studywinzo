@@ -1,13 +1,25 @@
 <?php
-ini_set('display_errors', 0);
+ini_set('display_errors', '0');
+error_reporting(E_ALL);
 require_once 'config.php';
 require_once __DIR__.'/../cloud_upload.php';
-requireAdmin();
-header('Content-Type: application/json');
-
-$action = $_POST['action'] ?? $_GET['action'] ?? '';
+header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-store');
 
 function jsonOut($a){ echo json_encode($a); exit; }
+
+if (!isAdmin()) {
+    http_response_code(401);
+    jsonOut(['success'=>false, 'error'=>'Admin session expired. Please login again.']);
+}
+
+set_exception_handler(function(Throwable $e){
+    error_log('batches_api error: ' . $e->getMessage());
+    http_response_code(500);
+    jsonOut(['success'=>false, 'error'=>'Server error while saving the batch. Please retry.']);
+});
+
+$action = $_POST['action'] ?? $_GET['action'] ?? '';
 
 // GET batches by institution
 if ($action === 'get_batches') {
@@ -56,9 +68,21 @@ if ($action === 'save_batch') {
     $subjects = getJSON('subjects.json', []);
     
     $img = $_POST['existing_image'] ?? '';
-    if (!empty($_FILES['image']['tmp_name'])) {
-        if (($_FILES['image']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
-            jsonOut(['success'=>false, 'error'=>'Thumbnail upload failed']);
+    if (isset($_FILES['image'])) {
+        $uploadError = (int)($_FILES['image']['error'] ?? UPLOAD_ERR_NO_FILE);
+        if ($uploadError !== UPLOAD_ERR_OK) {
+            $uploadErrors = [
+                UPLOAD_ERR_INI_SIZE => 'Thumbnail is larger than the server upload limit',
+                UPLOAD_ERR_FORM_SIZE => 'Thumbnail is too large',
+                UPLOAD_ERR_PARTIAL => 'Thumbnail upload was interrupted',
+                UPLOAD_ERR_NO_FILE => 'No thumbnail selected',
+                UPLOAD_ERR_NO_TMP_DIR => 'Server upload folder is unavailable',
+                UPLOAD_ERR_CANT_WRITE => 'Server could not save the thumbnail',
+            ];
+            jsonOut(['success'=>false, 'error'=>$uploadErrors[$uploadError] ?? 'Thumbnail upload failed']);
+        }
+        if (empty($_FILES['image']['tmp_name']) || !is_uploaded_file($_FILES['image']['tmp_name'])) {
+            jsonOut(['success'=>false, 'error'=>'Thumbnail upload did not reach the server']);
         }
         $tmp = $_FILES['image']['tmp_name'];
         $mime = function_exists('mime_content_type') ? (mime_content_type($tmp) ?: '') : '';
@@ -69,7 +93,7 @@ if ($action === 'save_batch') {
         if ((int)($_FILES['image']['size'] ?? 0) > 5 * 1024 * 1024) {
             jsonOut(['success'=>false, 'error'=>'Thumbnail must be 5MB or smaller']);
         }
-        $cloud = cloudUpload($tmp, 'image', 'studywinzo/batches');
+        $cloud = cloudUpload($tmp, 'image', 'batches');
         if ($cloud['success']) $img = $cloud['url'];
         else jsonOut(['success'=>false, 'error'=>'Image: '.$cloud['error']]);
     }

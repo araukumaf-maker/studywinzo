@@ -380,8 +380,23 @@ function saveBatch(e){
   btn.disabled = true;
   btn.innerHTML = '<i class="ph-bold ph-circle-notch" style="animation:spin 1s linear infinite"></i> Saving...';
   
-  fetch('batches_api.php', { method: 'POST', body: fd })
-    .then(r => r.json())
+  fetch('batches_api.php', {
+    method: 'POST',
+    body: fd,
+    credentials: 'same-origin',
+    headers: { 'Accept': 'application/json' }
+  })
+    .then(function(r){
+      return r.text().then(function(text){
+        var data = null;
+        try { data = JSON.parse(text); } catch (parseErr) {
+          if (r.status === 401 || r.redirected) throw new Error('Admin session expired. Please login again.');
+          throw new Error('Server error (' + r.status + '). Please retry.');
+        }
+        if (!r.ok || !data.success) throw new Error(data.error || 'Thumbnail upload failed');
+        return data;
+      });
+    })
     .then(d => {
       btn.disabled = false;
       btn.innerHTML = '<i class="ph-bold ph-check"></i> Save Batch';
@@ -391,7 +406,11 @@ function saveBatch(e){
         loadBatches();
       } else showToast(d.error || 'Error', true);
     })
-    .catch(function(){ btn.disabled = false; btn.innerHTML = '<i class="ph-bold ph-check"></i> Save Batch'; showToast('Network error', true); });
+    .catch(function(err){
+      btn.disabled = false;
+      btn.innerHTML = '<i class="ph-bold ph-check"></i> Save Batch';
+      showToast(err && err.message ? err.message : 'Upload failed. Please retry.', true);
+    });
 }
 
 function deleteBatch(id){

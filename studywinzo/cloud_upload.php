@@ -18,7 +18,7 @@ function cloudUpload($filePath, $fileType = 'image', $folder = 'studywinzo') {
     $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
     $name = 'f_'.time().'_'.bin2hex(random_bytes(4)).($ext ? '.'.$ext : '');
     $remotePath = ($folder ? $folder.'/' : '').$name;
-    $mime = mime_content_type($filePath) ?: 'application/octet-stream';
+    $mime = function_exists('mime_content_type') ? (mime_content_type($filePath) ?: 'application/octet-stream') : 'application/octet-stream';
     $url = supabaseUpload($filePath, $remotePath, $mime);
     if (!$url) return ['success'=>false,'error'=>'Supabase Storage upload failed'];
 
