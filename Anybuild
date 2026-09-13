@@ -1,0 +1,15 @@
+# Explicit Wasmer Anybuild configuration for the PHP application.
+# The repository also contains Replit workspace packages, so do not let
+# package.json make Anybuild select the Node provider.
+
+load("//anybuild/tools:php.bzl", "php_build", "php_config", "php_serve")
+
+config = php_config(
+    schema = 1,
+    composer_enable = False,
+    php_public_dir = "studywinzo",
+)
+
+build = php_build(config)
+
+php_serve(config, build, name = "studywinzo")
